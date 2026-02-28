@@ -202,7 +202,7 @@ Add the following to your Claude Desktop MCP config. Mount your browser profile 
 
 </details>
 
-> **Note**: Browsers must be closed before running the server so their SQLite databases are not locked. The volumes are mounted read-only (`:ro`) — no data is modified.
+> **Note**: Browsers must be closed before running the server so their SQLite databases are not locked. The volumes are mounted read-only (`:ro`) — no data is modified. Adjust the volume paths if your browser profiles are in non-default locations.
 
 ## Troubleshooting
 

@@ -170,8 +170,8 @@ Add the following to your Claude Desktop MCP config. Mount your browser profile 
       "command": "docker",
       "args": [
         "run", "--rm", "-i",
-        "-v", "${HOME}/Library/Application Support/Firefox/Profiles:/root/.mozilla/firefox:ro",
-        "-v", "${HOME}/Library/Application Support/Google/Chrome:/root/.config/google-chrome:ro",
+        "-v", "${HOME}/Library/Application Support/Firefox/Profiles:/home/appuser/.mozilla/firefox:ro",
+        "-v", "${HOME}/Library/Application Support/Google/Chrome:/home/appuser/.config/google-chrome:ro",
         "browser-mcp-server"
       ]
     }
@@ -191,8 +191,8 @@ Add the following to your Claude Desktop MCP config. Mount your browser profile 
       "command": "docker",
       "args": [
         "run", "--rm", "-i",
-        "-v", "${HOME}/.mozilla/firefox:/root/.mozilla/firefox:ro",
-        "-v", "${HOME}/.config/google-chrome:/root/.config/google-chrome:ro",
+        "-v", "${HOME}/.mozilla/firefox:/home/appuser/.mozilla/firefox:ro",
+        "-v", "${HOME}/.config/google-chrome:/home/appuser/.config/google-chrome:ro",
         "browser-mcp-server"
       ]
     }

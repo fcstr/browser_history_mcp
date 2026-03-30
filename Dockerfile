@@ -1,6 +1,9 @@
-FROM python:3.12-slim@sha256:<PYTHON_3_12_SLIM_DIGEST>
+FROM python:3.12-slim
 
-COPY --from=ghcr.io/astral-sh/uv:0.4.18@sha256:<UV_0_4_18_DIGEST> /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.6 /uv /uvx /bin/
+
+RUN groupadd --system appgroup && \
+    useradd --system --gid appgroup --create-home appuser
 
 WORKDIR /app
 
@@ -12,6 +15,8 @@ RUN uv sync --frozen --no-dev --no-install-project
 
 # Copy application source
 COPY server/ server/
+
+USER appuser
 
 # Run the MCP server via stdio transport
 CMD ["uv", "run", "mcp", "run", "server/main.py"]

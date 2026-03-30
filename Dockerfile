@@ -1,6 +1,6 @@
-FROM python:3.12-slim
+FROM python:3.12-slim@sha256:<PYTHON_3_12_SLIM_DIGEST>
 
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.4.18@sha256:<UV_0_4_18_DIGEST> /uv /uvx /bin/
 
 WORKDIR /app
 

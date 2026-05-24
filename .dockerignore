@@ -8,5 +8,4 @@ build/
 dist/
 wheels/
 LICENSE
-README.md
 poetry.lock

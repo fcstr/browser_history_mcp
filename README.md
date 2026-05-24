@@ -15,6 +15,7 @@ A local Model Context Protocol (MCP) server that provides access to browser hist
 - [Configuration](#-configuration)
 - [API Reference](#-api-reference)
 - [Browser Support](#-browser-support)
+- [Docker](#-docker)
 - [Troubleshooting](#-troubleshooting)
 - [Privacy & Security](#-privacy--security)
 - [License](#-license)
@@ -146,6 +147,62 @@ uv run mcp install server/main.py --name "Browser History MCP"
 | **Safari** | 🔄 Limited Support | Mostly older versions of Safari | 
 
 **Important**: Browsers must be closed to access their history databases due to file locking mechanisms.
+
+## 🐳 Docker
+
+### Build
+
+```bash
+docker build -t browser-mcp-server .
+```
+
+### Use with Claude Desktop
+
+Add the following to your Claude Desktop MCP config. Mount your browser profile directories so the server can access the history databases:
+
+<details>
+<summary>macOS</summary>
+
+```json
+{
+  "mcpServers": {
+    "Browser History MCP": {
+      "command": "docker",
+      "args": [
+        "run", "--rm", "-i",
+        "-v", "${HOME}/Library/Application Support/Firefox/Profiles:/home/appuser/.mozilla/firefox:ro",
+        "-v", "${HOME}/Library/Application Support/Google/Chrome:/home/appuser/.config/google-chrome:ro",
+        "browser-mcp-server"
+      ]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Linux</summary>
+
+```json
+{
+  "mcpServers": {
+    "Browser History MCP": {
+      "command": "docker",
+      "args": [
+        "run", "--rm", "-i",
+        "-v", "${HOME}/.mozilla/firefox:/home/appuser/.mozilla/firefox:ro",
+        "-v", "${HOME}/.config/google-chrome:/home/appuser/.config/google-chrome:ro",
+        "browser-mcp-server"
+      ]
+    }
+  }
+}
+```
+
+</details>
+
+> **Note**: Browsers must be closed before running the server so their SQLite databases are not locked. The volumes are mounted read-only (`:ro`) — no data is modified. Adjust the volume paths if your browser profiles are in non-default locations.
 
 ## Troubleshooting
 
